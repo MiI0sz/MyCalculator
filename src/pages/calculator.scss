@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+// Funkcje obsługujące wprowadzane zmienne:
+@function trim($number) {
+    @if type-of($number)=='number' and not unitless($number) {
+        @return $number / ($number * 0+1);
+    }
+    @return $number;
+}
+
+@function replace($string, $search, $replace: '') {
+    $index: str-index($string, $search);
+    @return if($index,
+    str-slice($string, 1, $index - 1) + $replace + replace(str-slice($string, $index + str-length($search)), $search, $replace),
+    $string);
+}
+
+@mixin super-rectangle ($width, $height, $color){
+    $width: trim($width);
+    $height: trim($height);
+    $color: replace(''+$color+'', '#', '%23');
+    $halfWidth: $width / 2;
+    $halfHeight: $height / 2;
+    background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg version='1.1' id='rectangle' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='"+$width+"' height='"+$height+"' viewBox='0 0 "+$width+" "+$height+"' enable-background='new 0 0 "+$width+" "+$height+"' xml:space='preserve'%3E%3Cpath fill='"+$color+"' stroke='none' d='M 0,"+$halfHeight+" C 0,0 0,0 "+$halfWidth+",0 S "+$width+",0 "+$width+","+$halfHeight+" "+$width+","+$height+" "+$halfWidth+","+$height+" 0,"+$height+" 0,"+$halfHeight+"'%3E%3C/path%3E%3C/svg%3E");
+    background-size: #{$width + 'px'} #{$height + 'px'};
+    background-repeat: no-repeat;
+}
+
+@mixin shadow-plain ($w, $h){
+    position: relative;
+    &:before {
+      @include super-rectangle ($w, $h, black);
+      position: absolute;
+      width: $w;
+      height: $h;
+      z-index: -1;
+      content: "";
+      left: 2px;
+      top: 2px;
+      opacity: 0.2;
+    }
+  }
+
+@mixin rounded-rectangle ($color, $vievWidth, $vievHeight, $radOne, $radTwo, $strokeLine, $strCol){
+    $color: replace(''+$color+'', '#', '%23');
+    $strCol: replace(''+$strCol+'', '#', '%23');
+
+    $viewWidth: trim($vievWidth);
+    $viewHeight: trim($vievHeight);
+    $width: $viewWidth - $strokeLine;
+    $height: $viewHeight - $strokeLine;
+    $radiusOne: trim($radOne);
+    $radiusTwo: trim($radTwo);
+    $radiusThree: $width - $radiusOne;
+    $radiusFour: $height - $radiusTwo;
+    $vievOffset: - ($strokeLine / 2);
+
+    background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg version='1.1' id='rectangle' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='"+$viewWidth+"' height='"+$viewHeight+"' viewBox='"+$vievOffset+" "+$vievOffset+" "+$viewWidth+" "+$viewHeight+"' enable-background='new 0 0 "+$width+" "+$height+"' xml:space='preserve'%3E%3Cpath fill='"+$color+"' stroke='"+$strCol+"' stroke-width='"+$strokeLine+"' d='M 0,"+$radiusTwo+" C 0,0 0,0 "+$radiusOne+",0 "+$radiusThree+",0 "+$radiusOne+",0 "+$radiusThree+",0 "+$width+",0  "+$width+",0 "+$width+","+$radiusTwo+" "+$width+","+$radiusFour+" "+$width+","+$radiusTwo+" "+$width+","+$radiusFour+" "+$width+","+$height+" "+$width+","+$height+" "+$radiusThree+","+$height+" "+$radiusOne+","+$height+" "+$radiusThree+","+$height+" "+$radiusOne+","+$height+" 0,"+$height+" 0,"+$height+" 0,"+$radiusFour+" 0,"+$radiusTwo+"  0,"+$radiusFour+" 0,"+$radiusTwo+"'%3E%3C/path%3E%3C/svg%3E");
+    //background-size: #{$width + 'px'} #{$height + 'px'};
+    background-repeat: no-repeat;
+}
+
+.container {
+    height: calc(100vh - 15rem);
+    //background: rgb(228, 224, 215) url("../../public/numbers_bg.svg") no-repeat;
+    background: rgb(210, 205, 195) url("../../public/numbers_bg.svg") no-repeat;
+    background-position: center center;
+    display: flex;
+    align-items: center;
+    min-height: 26rem;
+}
+
+.calculator {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 8px;
+    //max-width: 29rem;
+    width: 344px;
+    margin: 0px auto;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 7rem repeat(4, 64px);
+    height: 25rem;
+    grid-gap: 8px;
+
+
+    .calc_display {
+        padding: 12px;
+        grid-column: 1 / span 4;
+        font-family: inherit;
+        font-size: 4rem;
+        text-align: right;
+        margin-bottom: 1rem;
+        border: none;
+        $w: 344px;
+        $h: 96px;
+        $c: white;
+        $strCol: #25316D;
+        @include rounded-rectangle ($c, $w, $h, 40px, 32px, 2, $strCol);
+
+        &:focus {
+           outline: none;
+        }
+    }
+
+    .numbers {
+        grid-column: 1 / span 3;
+        grid-row: 2/ span 4;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 8px;
+
+        .numbers_button {
+            font: inherit;
+            border: none;
+            $w: 80px;
+            $h: 64px;
+            $c: #EFEFEF;
+            @include shadow-plain($w, $h);
+            @include super-rectangle ($w, $h, $c);
+        }
+    }
+
+    .operations {
+        grid-row: 2 / span 4;
+        grid-column: 3 / span 2;
+        display: grid;
+        grid-template: repeat(4, 1fr) / repeat(2, 1fr);
+        grid-template-areas: ". plus"
+                             ". minus"
+                             ". divide"
+                             "equal multiply";
+        grid-gap: 8px;
+
+        .operations_button {
+            font: inherit;
+            border: none;
+            $w: 80px;
+            $h: 64px;
+            $c: #EFEFEF;
+            @include shadow-plain($w, $h);
+            @include super-rectangle ($w, $h, $c);
+        }
+
+        .plus {
+            grid-area: plus;
+        }
+        .minus {
+            grid-area: minus;
+        }
+        .divide {
+            grid-area: divide;
+        }
+        .multiply {
+            grid-area: multiply;
+        }
+        .equal {
+            grid-area: equal;
+        }
+
+    }
+
+    .reset_button {
+        grid-area: 5 / 2 / 6 / 3;
+        font: inherit;
+        border: none;
+        $w: 80px;
+        $h: 64px;
+        $c: #EFEFEF;
+        @include shadow-plain($w, $h);
+        @include super-rectangle ($w, $h, $c);
+
+    }
+}
+
+/* Making SVG scalable:
+    1) in SVG set: preserveAspectRatio='none'
+    2) set: background-size: 100% 100%;
+*/
