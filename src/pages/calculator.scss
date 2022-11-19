@@ -80,19 +80,17 @@
     font-family: 'Roboto', sans-serif;
     font-size: 2rem;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 7rem repeat(4, 64px);
+    grid-template-columns: auto;
+    grid-template-rows: 6rem 280rem;
     height: 25rem;
-    grid-gap: 8px;
-
+    grid-gap: 24px;
 
     .calc_display {
         padding: 12px;
-        grid-column: 1 / span 4;
+        grid-column: 1 / span 1;
         font-family: inherit;
         font-size: 4rem;
         text-align: right;
-        margin-bottom: 1rem;
         box-sizing: border-box;
         width: 100%;
         border: none;
@@ -107,73 +105,70 @@
         }
     }
 
-    .numbers {
-        grid-column: 1 / span 3;
-        grid-row: 2/ span 4;
+    .buttons {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 64px);
         grid-gap: 8px;
 
-        .numbers_button {
-            font: inherit;
-            border: none;
-            $w: 80px;
-            $h: 64px;
-            $c: #EFEFEF;
-            @include shadow-plain($w, $h);
-            @include super-rectangle ($w, $h, $c);
-        }
-    }
-
-    .operations {
-        grid-row: 2 / span 4;
-        grid-column: 3 / span 2;
-        display: grid;
-        grid-template: repeat(4, 1fr) / repeat(2, 1fr);
-        grid-template-areas: ". plus"
-                             ". minus"
-                             ". divide"
-                             "equal multiply";
-        grid-gap: 8px;
-
-        .operations_button {
-            font: inherit;
-            border: none;
-            $w: 80px;
-            $h: 64px;
-            $c: #EFEFEF;
-            @include shadow-plain($w, $h);
-            @include super-rectangle ($w, $h, $c);
+        .numbers {
+            grid-column: 1 / span 3;
+            grid-row: 1/ span 4;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 8px;
+    
+            .numbers_button {
+                font: inherit;
+                border: none;
+                $w: 80px;
+                $h: 64px;
+                $c: #EFEFEF;
+                @include shadow-plain($w, $h);
+                @include super-rectangle ($w, $h, $c);
+            }
         }
 
-        .plus {
-            grid-area: plus;
+        .operations {
+            grid-row: 1 / span 4;
+            grid-column: 2 / span 3;
+            display: grid;
+            grid-template: repeat(4, 1fr) / repeat(3, 1fr);
+            grid-template-areas: ". . plus"
+                                 ". . minus"
+                                 ". . divide"
+                                 "reset equal multiply";
+            grid-gap: 8px;
+    
+            .operations_button {
+                font: inherit;
+                border: none;
+                $w: 80px;
+                $h: 64px;
+                $c: #EFEFEF;
+                @include shadow-plain($w, $h);
+                @include super-rectangle ($w, $h, $c);
+            }
+    
+            .plus {
+                grid-area: plus;
+            }
+            .minus {
+                grid-area: minus;
+            }
+            .divide {
+                grid-area: divide;
+            }
+            .multiply {
+                grid-area: multiply;
+            }
+            .equal {
+                grid-area: equal;
+            }
+            .reset {
+                grid-area: reset;
+            }
         }
-        .minus {
-            grid-area: minus;
-        }
-        .divide {
-            grid-area: divide;
-        }
-        .multiply {
-            grid-area: multiply;
-        }
-        .equal {
-            grid-area: equal;
-        }
-
-    }
-
-    .reset_button {
-        grid-area: 5 / 2 / 6 / 3;
-        font: inherit;
-        border: none;
-        $w: 80px;
-        $h: 64px;
-        $c: #EFEFEF;
-        @include shadow-plain($w, $h);
-        @include super-rectangle ($w, $h, $c);
-
     }
 }
 
