@@ -1,8 +1,6 @@
 import React,  { Component } from "react";
 import CalcDisplay from "../components/calcDisplay";
-import NumberButtons from "../components/numberButtons";
-import OperationButtons from "../components/operationButtons";
-import ResetButton from "../components/resetButton";
+import CalculatorButtons from "../components/CalcultorButtons";
 import "./calculator.scss";
 
 class Calculator extends Component {
@@ -66,9 +64,7 @@ class Calculator extends Component {
             <div className="container">
                 <section className="calculator">
                     <CalcDisplay value={this.state.displayedValue} onChange={this.readCurrentValueFromDisplay} />
-                    <NumberButtons onClick={this.onNumberClick} />
-                    <OperationButtons onClick={this.onOperatorClick} />
-                    <ResetButton onClick={this.onResetClick} />
+                    <CalculatorButtons numberClick={this.onNumberClick} operatorClick={this.onOperatorClick} resetClick={this.onResetClick} />
                 </section>
             </div>
         );

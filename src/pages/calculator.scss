@@ -93,6 +93,8 @@
         font-size: 4rem;
         text-align: right;
         margin-bottom: 1rem;
+        box-sizing: border-box;
+        width: 100%;
         border: none;
         $w: 344px;
         $h: 96px;
