@@ -6,24 +6,24 @@ function CalculatorButtons (props) {
     return (
         <div className="buttons">
             <div className="numbers">
-                <Button value="1" className="numbers_button one" onClick={numberClick} label="1"/>
-                <Button value="2" className="numbers_button two" onClick={numberClick} label="2"/>
-                <Button value="3" className="numbers_button three" onClick={numberClick} label="3"/>
-                <Button value="4" className="numbers_button four" onClick={numberClick} label="4"/>
-                <Button value="5" className="numbers_button five" onClick={numberClick} label="5"/>
-                <Button value="6" className="numbers_button six" onClick={numberClick} label="6"/>
-                <Button value="7" className="numbers_button seven" onClick={numberClick} label="7"/>
-                <Button value="8" className="numbers_button eight" onClick={numberClick} label="8"/>
-                <Button value="9" className="numbers_button nine" onClick={numberClick} label="9"/>
-                <Button value="0" className="numbers_button zero" onClick={numberClick} label="0"/>
+                <Button className="numbers_button one" onClick={() => numberClick(1)} label="1"/>
+                <Button className="numbers_button two" onClick={() => numberClick(2)} label="2"/>
+                <Button className="numbers_button three" onClick={() => numberClick(3)} label="3"/>
+                <Button className="numbers_button four" onClick={() => numberClick(4)} label="4"/>
+                <Button className="numbers_button five" onClick={() => numberClick(5)} label="5"/>
+                <Button  className="numbers_button six" onClick={() => numberClick(6)} label="6"/>
+                <Button className="numbers_button seven" onClick={() => numberClick(7)} label="7"/>
+                <Button className="numbers_button eight" onClick={() => numberClick(8)} label="8"/>
+                <Button className="numbers_button nine" onClick={() => numberClick(9)} label="9"/>
+                <Button className="numbers_button zero" onClick={() => numberClick(0)} label="0"/>
             </div>
             <div className="operations">
-                <Button value="plus" className="operations_button plus" onClick={operatorClick} label="+"/>
-                <Button value="minus" className="operations_button minus" onClick={operatorClick} label="-"/>
-                <Button value="divide" className="operations_button divide" onClick={operatorClick} label="&divide;"/>
-                <Button value="multiply" className="operations_button multiply" onClick={operatorClick} label="&times;"/>
-                <Button value="equal" className="operations_button equal" onClick={operatorClick} label="="/>
-                <Button value="C" className="operations_button reset" onClick={resetClick} label="C"/>
+                <Button className="operations_button plus" onClick={() => operatorClick("plus")} label="+"/>
+                <Button className="operations_button minus" onClick={() => operatorClick("minus")} label="-"/>
+                <Button className="operations_button divide" onClick={() => operatorClick("divide")} label="&divide;"/>
+                <Button className="operations_button multiply" onClick={() => operatorClick("multiply")} label="&times;"/>
+                <Button className="operations_button equal" onClick={() => operatorClick("equal")} label="="/>
+                <Button className="operations_button reset" onClick={resetClick} label="C"/>
             </div>
         </div>
     );

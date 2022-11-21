@@ -25,19 +25,19 @@ class Calculator extends Component {
         }));
     }
 
-    onNumberClick = (event) => {
+    onNumberClick = (value) => {
         this.setState (prevState => ({
             ...prevState,
-            currentValue: prevState.currentValue + event.target.value,
-            displayedValue: prevState.currentValue + event.target.value
+            currentValue: prevState.currentValue + value,
+            displayedValue: prevState.currentValue + value
         }));
     }
 
-    onOperatorClick = (event) => {
+    onOperatorClick = (operatorType) => {
         let mathOperationResult = this.executeMathOperation (this.state.result, this.state.operator, this.state.currentValue);
         this.setState ({
             result: mathOperationResult,
-            operator: event.target.value,
+            operator: operatorType,
             currentValue: "",
             displayedValue: mathOperationResult
         });
