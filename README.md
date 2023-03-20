@@ -7,6 +7,6 @@ I also make some effort to style the calculator buttons and “display” with s
 React, SASS
 ## How to run the code:
 * Download the code and instal dependencies (in the project directory run: `npm install`)
-* Run the app in the development mode (In the project directory run: `npm start`, then open http://localhost:3000 in the browser)
+* Run the app in the development mode (In the project directory run: `npm start`, then open http://localhost:3000 in the browser)\
 You can also see the working app here:\
 https://mgwebdevelopment.000webhostapp.com/calculator
